@@ -5,13 +5,13 @@ function day2() {
     const reports = input.split('\n').map(str => str.split(' ').map(Number));
 
     const save = reports.filter(isSave);
-    const saved = reports.filter(faultSave);
+    const saved = reports.filter(isFaultSave);
 
     console.log('[D2P1] save', save.length)
     console.log('[D2P2] faultSave', saved.length);
 }
 
-function faultSave(numbers) {
+function isFaultSave(numbers) {
 
     if (isSave(numbers)) return true;
 
@@ -27,23 +27,12 @@ function isSave(numbers) {
 
     let increasing = undefined;
 
-    for (i = 0; i < numbers.length; i++) {
+    for (let i = 0; i < numbers.length - 1; i++) {
 
-        const current = numbers[i], next = numbers[i + 1];
+        let diff = numbers[i] - numbers[i + 1];
 
-        if (next) {
-            let diff = current - next;
-
-            if (increasing === undefined) {
-                increasing = diff > 0 ? true : diff < 0 ? false : undefined;
-                if (increasing === undefined) return false;
-            }
-
-            if ((increasing && diff < 0) || (!increasing && diff > 0)) return false;
-
-            diff = Math.abs(diff);
-            if (diff < 1 || diff > 3) return false;
-        }
+        if (increasing === undefined) increasing = diff > 0;
+        if ((increasing && diff <= 0) || (!increasing && diff >= 0) || Math.abs(diff) > 3) return false;
     }
     return true;
 }
