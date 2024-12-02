@@ -10,7 +10,7 @@ function day1() {
         .forEach(line =>{
             left.push(+line[0]);
             right.push(+line[1]);
-            rightCount[line[1]] = (rightCount[line[1]] ?? 0) + 1;
+            rightCount[+line[1]] = (rightCount[+line[1]] ?? 0) + 1;
         });
 
     left.sort((a, b) => a - b);
@@ -31,4 +31,3 @@ function day1() {
     console.log('[D1P2] similarityScore', similarityScore);
 }
 day1();
-
