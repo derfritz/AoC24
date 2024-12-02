@@ -7,10 +7,11 @@ function day1() {
 
     input.split('\n')
         .map(line => line.split('   '))
+        .map(strings => [Number(strings[0]), Number(strings[1])])
         .forEach(line =>{
-            left.push(+line[0]);
-            right.push(+line[1]);
-            rightCount[+line[1]] = (rightCount[+line[1]] ?? 0) + 1;
+            left.push(line[0]);
+            right.push(line[1]);
+            rightCount[line[1]] = (rightCount[line[1]] ?? 0) + 1;
         });
 
     left.sort((a, b) => a - b);
