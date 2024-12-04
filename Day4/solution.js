@@ -33,10 +33,8 @@ function day4() {
         const xmasAxis1 = charAt(i - 1, j - 1) + charAt(i, j) + charAt(i + 1, j + 1);
         const xmasAxis2 = charAt(i - 1, j + 1) + charAt(i, j) + charAt(i + 1, j - 1);
 
-        if ((xmasAxis1 === 'MAS' || xmasAxis1 === 'SAM') &&
-            (xmasAxis2 === 'MAS' || xmasAxis2 === 'SAM')) return 1;
-
-        return 0;
+        return ((xmasAxis1 === 'MAS' || xmasAxis1 === 'SAM') &&
+                (xmasAxis2 === 'MAS' || xmasAxis2 === 'SAM')) ? 1 : 0;
     }
 
     for (let i = 0; i < matrix.length; i++) {
