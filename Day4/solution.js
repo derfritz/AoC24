@@ -8,7 +8,7 @@ function day4() {
     let pt1Count = 0;
     let pt2Count = 0;
 
-    const charAt = (i, j) => ((matrix[i] && matrix[i][j])) ? matrix[i][j] : '';
+    const charAt = (i, j) => (matrix[i] && matrix[i][j]) ? matrix[i][j] : '';
 
     const xmasFoundAt = (i, j) => {
 
@@ -24,6 +24,7 @@ function day4() {
             charAt(i + 3 * dx, j + 3 * dy)
         ).filter(s => s === 'XMAS').length;
     }
+    
     const xmasAxisFoundAt = (i, j) => {
 
         if (!(matrix[i] || matrix[i][j])) return 0;
