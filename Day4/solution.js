@@ -15,33 +15,29 @@ function day4() {
         if (!(matrix[i] || matrix[i][j])) return 0;
         if (matrix[i][j] !== 'X') return 0;
 
-        const forward = `${charAt(i, j)}${charAt(i, j + 1)}${charAt(i, j + 2)}${charAt(i, j + 3)}`;
-        const backward = `${charAt(i, j)}${charAt(i, j - 1)}${charAt(i, j - 2)}${charAt(i, j - 3)}`;
-        const down = `${charAt(i, j)}${charAt(i + 1, j)}${charAt(i + 2, j)}${charAt(i + 3, j)}`;
-        const up = `${charAt(i, j)}${charAt(i - 1, j)}${charAt(i - 2, j)}${charAt(i - 3, j)}`;
-        const diagonalDownRight = `${charAt(i, j)}${charAt(i + 1, j + 1)}${charAt(i + 2, j + 2)}${charAt(i + 3, j + 3)}`;
-        const diagonalDownLeft = `${charAt(i, j)}${charAt(i + 1, j - 1)}${charAt(i + 2, j - 2)}${charAt(i + 3, j - 3)}`;
-        const diagonalUpRight = `${charAt(i, j)}${charAt(i - 1, j + 1)}${charAt(i - 2, j + 2)}${charAt(i - 3, j + 3)}`;
-        const diagonalUpLeft = `${charAt(i, j)}${charAt(i - 1, j - 1)}${charAt(i - 2, j - 2)}${charAt(i - 3, j - 3)}`;
+        const directions = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]];
 
-        return [forward, backward, down, up, diagonalDownLeft, diagonalUpLeft, diagonalDownRight, diagonalUpRight]
-            .filter(s => s === 'XMAS').length;
+        return directions.map(([dx, dy]) =>
+            charAt(i, j) +
+            charAt(i + dx, j + dy) +
+            charAt(i + 2 * dx, j + 2 * dy) +
+            charAt(i + 3 * dx, j + 3 * dy)
+        ).filter(s => s === 'XMAS').length;
     }
     const crossmasFoundAt = (i, j) => {
 
         if (!(matrix[i] || matrix[i][j])) return 0;
         if (matrix[i][j] !== 'A') return 0;
 
-        const axis1 = `${charAt(i - 1, j - 1)}${charAt(i, j)}${charAt(i + 1, j + 1)}`;
-        const axis2 = `${charAt(i - 1, j + 1)}${charAt(i, j)}${charAt(i + 1, j - 1)}`;
+        const axis1 = charAt(i - 1, j - 1) + charAt(i, j) + charAt(i + 1, j + 1);
+        const axis2 = charAt(i - 1, j + 1) + charAt(i, j) + charAt(i + 1, j - 1);
 
-        if ([axis1, axis1.split('').reverse().join(''),
-            axis2, axis2.split('').reverse().join('')]
-            .filter(s => s === 'MAS').length === 2) return 1;
+        if ((axis1 === 'MAS' || axis1 === 'SAM') &&
+            (axis2 === 'MAS' || axis2 === 'SAM')) return 1;
 
         return 0;
     }
-    
+
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
 
