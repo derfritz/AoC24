@@ -24,16 +24,16 @@ function day4() {
             charAt(i + 3 * dx, j + 3 * dy)
         ).filter(s => s === 'XMAS').length;
     }
-    const crossmasFoundAt = (i, j) => {
+    const xmasAxisFoundAt = (i, j) => {
 
         if (!(matrix[i] || matrix[i][j])) return 0;
         if (matrix[i][j] !== 'A') return 0;
 
-        const axis1 = charAt(i - 1, j - 1) + charAt(i, j) + charAt(i + 1, j + 1);
-        const axis2 = charAt(i - 1, j + 1) + charAt(i, j) + charAt(i + 1, j - 1);
+        const xmasAxis1 = charAt(i - 1, j - 1) + charAt(i, j) + charAt(i + 1, j + 1);
+        const xmasAxis2 = charAt(i - 1, j + 1) + charAt(i, j) + charAt(i + 1, j - 1);
 
-        if ((axis1 === 'MAS' || axis1 === 'SAM') &&
-            (axis2 === 'MAS' || axis2 === 'SAM')) return 1;
+        if ((xmasAxis1 === 'MAS' || xmasAxis1 === 'SAM') &&
+            (xmasAxis2 === 'MAS' || xmasAxis2 === 'SAM')) return 1;
 
         return 0;
     }
@@ -42,7 +42,7 @@ function day4() {
         for (let j = 0; j < matrix[i].length; j++) {
 
             pt1Count += xmasFoundAt(i, j, matrix);
-            pt2Count += crossmasFoundAt(i, j, matrix);
+            pt2Count += xmasAxisFoundAt(i, j, matrix);
         }
     }
     console.log('[D4P1]', pt1Count);
