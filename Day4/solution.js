@@ -42,8 +42,8 @@ function day4() {
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
 
-            pt1Count += xmasFoundAt(i, j, matrix);
-            pt2Count += xmasAxisFoundAt(i, j, matrix);
+            pt1Count += xmasFoundAt(i, j);
+            pt2Count += xmasAxisFoundAt(i, j);
         }
     }
     console.log('[D4P1]', pt1Count);
