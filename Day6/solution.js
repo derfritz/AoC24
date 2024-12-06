@@ -1,14 +1,3 @@
-const input = `....#.....
-.........#
-..........
-..#.......
-.......#..
-..........
-.#..^.....
-........#.
-#.........
-......#...`;
-
 const directions = {
     up: {x: -1, y: 0, turn: 'right', symbol: '^'},
     right: {x: 0, y: 1, turn: 'down', symbol: '>'},
@@ -98,10 +87,7 @@ function walk(matrix) {
 
         if (matrix[x][y] === '.') caret.virginSteps++;
         matrix[x][y] = '0';
-
-
     }
     return caret;
 }
-
 day6();
