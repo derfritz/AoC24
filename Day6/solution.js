@@ -14,11 +14,20 @@ function day6() {
 
     const matrix = input.split('\n').map(row => row.split(''));
 
-    const guard = walk(copy(matrix));
-    const loops = findLoops(matrix, guard.plan);
 
+    const start = performance.now()
+
+    const guard = walk(copy(matrix));
     console.log('[D6P1]', guard.virginSteps);
-    console.log('[D6P2]', loops);
+
+    const end1 = performance.now();
+
+    const loops = findLoops(matrix, guard.plan);
+    console.log('[D6P2]', loops.infiniteLoopsFound);
+
+    const end2 = performance.now();
+    console.log('Time for P1:', end1 - start);
+    console.log('Time for P2:', end2 - end1);
 }
 
 function findLoops(matrix, floorPlan) {
@@ -40,7 +49,7 @@ function findLoops(matrix, floorPlan) {
             }
         }
     }
-    return infiniteLoopsFound;
+    return {infiniteLoopsFound, loopCount};
 }
 
 function walk(matrix) {
