@@ -6,16 +6,7 @@ function day8() {
         .filter(row => row.length > 0)
         .map(row => row.split(''));
 
-    const antennas = {};
-    const antiNodes = {};
-    const antiNodesResonance = {}
-
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix[i].length; j++) {
-            if (matrix[i][j] !== '.') (antennas[matrix[i][j]] ??= []).push([i, j]);
-        }
-    }
-
+    const antennas = {}, antiNodes = {}, antiNodesResonance = {};
     const withinMatrix = (i, j) => (matrix[i] && matrix[i][j]);
     const registerAntiNodes = (current, next) => {
 
@@ -26,7 +17,6 @@ function day8() {
         if (withinMatrix(cx - dx, cy- dy)) antiNodes[`${cx - dx},${cy- dy}`] = true;
         if (withinMatrix(nx + dx, ny + dy)) antiNodes[`${nx + dx},${ny + dy}`] = true;
     }
-
     const registerAntiNodesResonance = (current, next) => {
 
         let [cx, cy] =  current;
@@ -42,6 +32,12 @@ function day8() {
             antiNodesResonance[`${nx},${ny}`] = true;
             nx += dx;
             ny += dy;
+        }
+    }
+
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            if (matrix[i][j] !== '.') (antennas[matrix[i][j]] ??= []).push([i, j]);
         }
     }
 
