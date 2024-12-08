@@ -1,33 +1,23 @@
+// Source: https://adventofcode.com/2020/day/6
+function day6() {
+
+    const input = require('fs').readFileSync('./input.txt', 'utf-8');
+    const matrix = input.split('\n').map(row => row.split(''));
+
+    const copy = (matrix) => (matrix.map(row => row.map(char => char)));
+
+    const guard = walk(copy(matrix));
+    console.log('[D6P1]', guard.virginSteps);
+
+    const loops = findLoops(matrix, guard.plan);
+    console.log('[D6P2]', loops.infiniteLoopsFound);
+}
+
 const directions = {
     up: {x: -1, y: 0, turn: 'right', symbol: '^'},
     right: {x: 0, y: 1, turn: 'down', symbol: '>'},
     down: {x: 1, y: 0, turn: 'left', symbol: 'v'},
     left: {x: 0, y: -1, turn: 'up', symbol: '<'},
-}
-
-const copy = (matrix) => (matrix.map(row => row.map(char => char)));
-const log = (matrix) => (matrix.forEach(row => console.log(row.join(''))));
-
-function day6() {
-    const fs = require('fs');
-    const input = fs.readFileSync('./input.txt', 'utf-8');
-
-    const matrix = input.split('\n').map(row => row.split(''));
-
-
-    const start = performance.now()
-
-    const guard = walk(copy(matrix));
-    console.log('[D6P1]', guard.virginSteps);
-
-    const end1 = performance.now();
-
-    const loops = findLoops(matrix, guard.plan);
-    console.log('[D6P2]', loops.infiniteLoopsFound);
-
-    const end2 = performance.now();
-    console.log('Time for P1:', end1 - start);
-    console.log('Time for P2:', end2 - end1);
 }
 
 function findLoops(matrix, floorPlan) {

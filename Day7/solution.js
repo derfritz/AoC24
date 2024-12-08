@@ -1,15 +1,14 @@
 // Source: https://adventofcode.com/2020/day/7
 function day7() {
-    const fs = require('fs');
-    const input = fs.readFileSync('./input.txt', 'utf-8');
 
+    const input = require('fs').readFileSync('./input.txt', 'utf-8');
     const equations = input
         .split('\n')
         .filter(row => row.length > 0)
         .map(row => row.split(': '))
         .map(([key, values]) => [Number(key), values.split(' ').map(Number)]);
 
-    const calculate = (numbers, operator, current, target, supportOr) => {
+    const calculate = (numbers, operator, current, target, supportConcat) => {
 
         if (target === current && numbers.length === 0) return true;
         if (current > target) return false;
@@ -28,26 +27,25 @@ function day7() {
             default: return false;
         }
 
-        return  calculate(numbers.slice(1), '*', current, target, supportOr) ||
-                calculate(numbers.slice(1), '+', current, target, supportOr) ||
-                (supportOr && calculate(numbers.slice(1), '|', current, target, supportOr));
-
+        return  calculate(numbers.slice(1), '*', current, target, supportConcat) ||
+                calculate(numbers.slice(1), '+', current, target, supportConcat) ||
+                (supportConcat && calculate(numbers.slice(1), '|', current, target, supportConcat));
     }
 
     const isPossible = ([result, nums]) => calculate(nums, '+', 0, result, false);
-    const isPossibleWithOr = ([result, nums]) => calculate(nums, '+', 0, result, true);
+    const isPossibleWithConcat = ([result, nums]) => calculate(nums, '+', 0, result, true);
 
-    const sumWithoutOr = equations
+    const sum = equations
         .filter(isPossible)
         .map(equation => equation[0])
         .reduce((sum, curr) => sum += curr, 0);
 
     const sumWithOr = equations
-        .filter(isPossibleWithOr)
+        .filter(isPossibleWithConcat)
         .map(equation => equation[0])
         .reduce((sum, curr) => sum += curr, 0);
 
-    console.log('[P7D1]', sumWithoutOr);
+    console.log('[P7D1]', sum);
     console.log('[P7D2]', sumWithOr);
 }
 

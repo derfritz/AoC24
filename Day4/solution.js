@@ -1,8 +1,7 @@
+// Source: https://adventofcode.com/2020/day/4
 function day4() {
 
-    const fs = require('fs');
-    const input = fs.readFileSync('./input.txt', 'utf8');
-
+    const input = require('fs').readFileSync('./input.txt', 'utf8');
     const matrix = input.split('\n').map(row => row.split(''));
 
     let pt1Count = 0;

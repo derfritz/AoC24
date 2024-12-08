@@ -1,8 +1,9 @@
+// Source: https://adventofcode.com/2020/day/5
 function day5() {
 
-    const fs = require('fs');
-    const input = fs.readFileSync('./input.txt', 'utf8');
+    const input = require('fs').readFileSync('./input.txt', 'utf8');
     const rows = input.split('\n');
+
     const controlMap = {};
 
     rows.filter(row => row.includes('|'))
