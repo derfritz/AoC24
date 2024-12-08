@@ -4,8 +4,6 @@ function day6() {
     const input = require('fs').readFileSync('./input.txt', 'utf-8');
     const matrix = input.split('\n').map(row => row.split(''));
 
-    const copy = (matrix) => (matrix.map(row => row.map(char => char)));
-
     const guard = walk(copy(matrix));
     console.log('[D6P1]', guard.virginSteps);
 
@@ -13,6 +11,7 @@ function day6() {
     console.log('[D6P2]', loops.infiniteLoopsFound);
 }
 
+const copy = (matrix) => (matrix.map(row => row.map(char => char)));
 const directions = {
     up: {x: -1, y: 0, turn: 'right', symbol: '^'},
     right: {x: 0, y: 1, turn: 'down', symbol: '>'},

@@ -17,7 +17,7 @@ function day8() {
         let [x, y] = node, [dx, dy] = nextNodeDistance;
         if (level === 1)  antiNodes[`${x},${y}`] = true;
         antiNodesResonance[`${x},${y}`] = true;
-        registerAntiNode([x + dx, y + dy], [dx, dy], ++level);
+        registerAntiNode([x + dx, y + dy], nextNodeDistance, ++level);
     }
 
     const registerAntiNodesResonance = (current, next) => {
