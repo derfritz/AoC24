@@ -7,32 +7,26 @@ function day8() {
         .map(row => row.split(''));
 
     const antennas = {}, antiNodes = {}, antiNodesResonance = {};
-    const withinMatrix = (i, j) => (matrix[i] && matrix[i][j]);
-    const registerAntiNodes = (current, next) => {
 
-        const [cx, cy] =  current;
-        const [nx, ny] =  next;
-        const [dx, dy] = [nx - cx, ny - cy];
+    const withinMatrix = ([x,y]) => (matrix[x] && matrix[x][y]);
 
-        if (withinMatrix(cx - dx, cy- dy)) antiNodes[`${cx - dx},${cy- dy}`] = true;
-        if (withinMatrix(nx + dx, ny + dy)) antiNodes[`${nx + dx},${ny + dy}`] = true;
+    const registerAntiNode = (node, nextNodeDistance, level) => {
+
+        if (!withinMatrix(node)) return;
+
+        let [x, y] = node, [dx, dy] = nextNodeDistance;
+        if (level === 1)  antiNodes[`${x},${y}`] = true;
+        antiNodesResonance[`${x},${y}`] = true;
+        registerAntiNode([x + dx, y + dy], [dx, dy], ++level);
     }
+
     const registerAntiNodesResonance = (current, next) => {
 
-        let [cx, cy] =  current;
-        let [nx, ny] =  next;
+        let [cx, cy] = current, [nx, ny] = next;
         const [dx, dy] = [nx - cx, ny - cy];
 
-        while (withinMatrix(cx , cy)) {
-            antiNodesResonance[`${cx},${cy}`] = true;
-            cx -= dx;
-            cy -= dy;
-        }
-        while (withinMatrix(nx , ny)) {
-            antiNodesResonance[`${nx},${ny}`] = true;
-            nx += dx;
-            ny += dy;
-        }
+        registerAntiNode([cx, cy], [-dx, -dy], 0);
+        registerAntiNode([nx, ny], [dx, dy], 0);
     }
 
     for (let i = 0; i < matrix.length; i++) {
@@ -46,7 +40,6 @@ function day8() {
 
             for (let i = 0; i < antennas[key].length - 1; i++) {
                 for (let j = i + 1; j < antennas[key].length; j++) {
-                    registerAntiNodes(antennas[key][i], antennas[key][j]);
                     registerAntiNodesResonance(antennas[key][i], antennas[key][j]);
                 }
             }
