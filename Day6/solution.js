@@ -53,7 +53,7 @@ function walk(matrix) {
         plan: matrix,
     };
 
-    const turnLog = {};
+    const turnLog = new Set();
     while (true) {
 
         const x = caret.x + directions[caret.currentDirection].x;
@@ -68,12 +68,12 @@ function walk(matrix) {
 
             caret.currentDirection = directions[caret.currentDirection].turn;
 
-            if (turnLog[`${caret.currentDirection} ${caret.x} ${caret.y}`]) {
+            if (turnLog.has(`${caret.currentDirection} ${caret.x} ${caret.y}`)) {
                 caret.exitReason = 'infinite loop';
                 break;
             }
 
-            turnLog[`${caret.currentDirection} ${caret.x} ${caret.y}`] = true;
+            turnLog.add(`${caret.currentDirection} ${caret.x} ${caret.y}`);
             continue;
         }
 

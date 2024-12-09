@@ -6,7 +6,7 @@ function day8() {
         .filter(row => row.length > 0)
         .map(row => row.split(''));
 
-    const antennas = {}, antiNodes = {}, antiNodesResonance = {};
+    const antennas = new Map(), antiNodes = new Set(), antiNodesResonance = new Set();
 
     const withinMatrix = ([x,y]) => (matrix[x] && matrix[x][y]);
 
@@ -15,8 +15,8 @@ function day8() {
         if (!withinMatrix(node)) return;
 
         let [x, y] = node, [dx, dy] = nextNodeDistance;
-        if (level === 1)  antiNodes[`${x},${y}`] = true;
-        antiNodesResonance[`${x},${y}`] = true;
+        if (level === 1)  antiNodes.add(`${x},${y}`);
+        antiNodesResonance.add(`${x},${y}`);
         registerAntiNode([x + dx, y + dy], nextNodeDistance, ++level);
     }
 
@@ -45,7 +45,7 @@ function day8() {
             }
         });
 
-    console.log('[D8P1]', Object.keys(antiNodes).length);
-    console.log('[D8P2]', Object.keys(antiNodesResonance).length);
+    console.log('[D8P1]', antiNodes.size);
+    console.log('[D8P2]', antiNodesResonance.size);
 }
 day8();
