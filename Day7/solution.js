@@ -1,4 +1,4 @@
-// Source: https://adventofcode.com/2020/day/7
+// Source: https://adventofcode.com/2024/day/7
 function day7() {
 
     const input = require('fs').readFileSync('./input.txt', 'utf-8');
