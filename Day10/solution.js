@@ -35,8 +35,8 @@ function day10() {
     let trails = 0;
 
     matrix.forEach((row, i) => row.forEach((num, j) => {
-        if (num === 0) {
 
+        if (num === 0) {
             const trailLog = findEndPoints([i, j]);
             endpoints += trailLog.endpoints;
             trails += trailLog.trails;
@@ -46,5 +46,4 @@ function day10() {
     console.log('[D10P1]', endpoints);
     console.log('[D10P2]', trails);
 }
-
 day10();
