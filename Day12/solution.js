@@ -5,7 +5,6 @@ function day12() {
     const matrix = input.map(row => row.split(''));
 
     const visited = new Set();
-
     const directions = [
         // n       e       w        s        ne       nw       sw       se
         [-1, 0], [0, 1], [0, -1], [1, 0], [-1, 1], [-1, -1], [1, -1], [1, 1]
@@ -19,8 +18,8 @@ function day12() {
         const key = `${x}-${y}`;
         const char = charAt(pos);
 
-        if (previous && charAt(previous) !== charAt(pos)) return;
-        if (visited.has(key)) return;
+        if (previous && charAt(previous) !== charAt(pos)) return; // out of bounds
+        if (visited.has(key)) return; // already visited
 
         visited.add(key);
 
@@ -40,8 +39,8 @@ function day12() {
 
         plan.set(key, {corners, fences});
 
-        return walk([x + 1, y], pos, plan) || walk([x - 1, y], pos, plan) ||
-            walk([x, y + 1], pos, plan) || walk([x, y - 1], pos, plan);
+        return  walk([x + 1, y], pos, plan) || walk([x - 1, y], pos, plan) ||
+                walk([x, y + 1], pos, plan) || walk([x, y - 1], pos, plan);
     }
     const plot = (pos) => {
         const plan = new Map();
@@ -59,9 +58,11 @@ function day12() {
     }
 
     let cost = 0;
-    let costDeducted = 0
+    let costDeducted = 0;
+
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
+
             if (!visited.has(`${i}-${j}`)) {
                 const estimate = plot([i, j]);
                 cost += estimate.size * estimate.fences;
@@ -72,5 +73,4 @@ function day12() {
     console.log('D12P1', cost);
     console.log('D12P2', costDeducted);
 }
-
 day12();
