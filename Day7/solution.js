@@ -38,12 +38,12 @@ function day7() {
     const sum = equations
         .filter(isPossible)
         .map(equation => equation[0])
-        .reduce((sum, curr) => sum += curr, 0);
+        .reduce((acc, curr) => acc + curr, 0);
 
     const sumWithOr = equations
         .filter(isPossibleWithConcat)
         .map(equation => equation[0])
-        .reduce((sum, curr) => sum += curr, 0);
+        .reduce((acc, curr) => acc + curr, 0);
 
     console.log('[P7D1]', sum);
     console.log('[P7D2]', sumWithOr);
