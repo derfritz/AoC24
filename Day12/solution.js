@@ -39,7 +39,7 @@ function day12() {
 
         // walk: n, e, w, s
         [directions[0], directions[1], directions[2], directions[3]]
-            .forEach(([dx, dy]) => {walk([x + dx, y + dy], pos, plan)});
+            .forEach(([dx, dy]) => walk([x + dx, y + dy], pos, plan));
     }
     const plot = (pos) => {
         const plan = new Map();
