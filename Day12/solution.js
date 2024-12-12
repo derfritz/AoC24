@@ -7,7 +7,7 @@ function day12() {
     const visited = new Set();
 
     const directions = [
-        // n       e       w        s         ne       nw      sw       se
+        // n       e       w        s        ne       nw       sw       se
         [-1, 0], [0, 1], [0, -1], [1, 0], [-1, 1], [-1, -1], [1, -1], [1, 1]
     ];
 
