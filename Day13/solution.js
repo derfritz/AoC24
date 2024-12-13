@@ -24,12 +24,12 @@ function day13() {
         }
     }
 
-    const playStupid = (gacha, priceCorrection = 0) => {
+    const playStupid = (gacha) => {
 
-        const priceX = gacha.price.x + priceCorrection;
-        const priceY = gacha.price.y + priceCorrection;
+        const priceX = gacha.price.x;
+        const priceY = gacha.price.y;
 
-        const rounds = 100 * priceCorrection
+        const rounds = 100;
 
         for (let i = rounds; i > 0; i--) {
             for (let j = 0; j < rounds; j++) {
