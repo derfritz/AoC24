@@ -64,7 +64,9 @@ function day13() {
         const pressA = (priceX * by - priceY * bx) / det;
         const pressB = (priceY * ax - priceX * ay) / det;
 
-        if (pressA >= 0 && pressB >= 0 && Number.isInteger(pressA) && Number.isInteger(pressB)) return (pressA * 3) + pressB;
+        if (pressA >= 0 && pressB >= 0 && Number.isInteger(pressA) && Number.isInteger(pressB))
+            return (pressA * 3) + pressB;
+
         return 0;
     }
 
