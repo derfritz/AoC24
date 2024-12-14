@@ -2,7 +2,6 @@
 function day13() {
 
     const input = require('fs').readFileSync('./input.txt', 'utf-8');
-    // const input = `Button A: X+94, Y+34 Button B: X+22, Y+67 Prize: X=8400, Y=5400`
 
     const regex = /Button ([AB]): X\+(\d+), Y\+(\d+)|Prize: X=(\d+), Y=(\d+)/g;
     const gachas = [];
@@ -75,6 +74,5 @@ function day13() {
 
     const tokensSpentAfterCorrection = gachas.reduce((acc, gacha) =>  acc + playSmart(gacha, 10000000000000),0);
     console.log('D13P2:', tokensSpentAfterCorrection);
-
 }
 day13();
