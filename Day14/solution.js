@@ -23,9 +23,7 @@ function day14() {
         );
 
     // place the robots
-    robots.forEach(robot => {
-        matrix[robot.y][robot.x]++;
-    });
+    robots.forEach(robot => matrix[robot.y][robot.x]++);
 
     const log = () => {
         matrix.forEach(row => console.log(row.join('').replaceAll('0', '.')));
@@ -50,7 +48,7 @@ function day14() {
                     }
                 }
                 if (sum >= windowSize * windowSize) {
-                    pattern.push({ x, y, sum });
+                    pattern.push({x, y, sum});
                 }
             }
         }
@@ -68,25 +66,24 @@ function day14() {
         let toX = x + vx;
         let toY = y + vy;
 
-        toX = toX < 0 ? toX + width : toX > width -1 ? toX - width: toX;
-        toY = toY < 0 ? toY + length : toY > length -1 ? toY - length: toY;
+        toX = toX < 0 ? toX + width : toX > width - 1 ? toX - width : toX;
+        toY = toY < 0 ? toY + length : toY > length - 1 ? toY - length : toY;
 
         matrix[toY][toX]++;
 
         robot.x = toX;
         robot.y = toY;
     }
-
     const calculateSafetyFactor = (sec) => {
 
-        for(let i = 1; i <= sec; i++) tick(i, matrix);
+        for (let i = 1; i <= sec; i++) tick(i);
 
         let safetyFactor = 1;
         [
-            matrix.filter((row, index) => index < (length -1) / 2).map(row => row.filter((_, index) => index < (width -1) / 2)),
-            matrix.filter((row, index) => index < (length -1) / 2).map(row => row.filter((_, index) => index > (width -1) / 2)),
-            matrix.filter((row, index) => index > (length -1) / 2).map(row => row.filter((_, index) => index < (width -1) / 2)),
-            matrix.filter((row, index) => index > (length -1) / 2).map(row => row.filter((_, index) => index > (width -1) / 2)),
+            matrix.slice(0, (length - 1) / 2).map(row => row.slice(0, (width - 1) / 2)),
+            matrix.slice(0, (length - 1) / 2).map(row => row.slice((width + 1) / 2)),
+            matrix.slice((length + 1) / 2).map(row => row.slice(0, (width - 1) / 2)),
+            matrix.slice((length + 1) / 2).map(row => row.slice((width + 1) / 2)),
         ].map(quadrant => quadrant.reduce((acc, row) => acc + row.reduce((acc, cell) => acc + cell, 0), 0))
             .forEach((factor) => safetyFactor *= factor);
 
@@ -99,7 +96,7 @@ function day14() {
 
         while (found = tick(frame) === -1) {
             frame++;
-            if (frame > 10_000) return -1;
+            if (frame > width * length) return -1;
         }
 
         log(matrix);
